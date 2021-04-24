@@ -48,7 +48,7 @@ find_nodes (locale_t* loc, vertex_set_t* vs, pyr_tree_t* p, int32_t nnum)
                      (p->node+nnum)->y_left))
             addVertexIntoVertexSet(vs, p, nnum);
     } else {
-        
+        // TODO: add trim operation
     }
     recurseAllChildren(loc, vs, p, nnum);
     return;
@@ -60,13 +60,13 @@ trim_nodes (graph_t* g, vertex_set_t* vs, locale_t* loc)
 {
     int32_t new_id = 0;
     int32_t new_count = 0;
-    int32_t new_vs_id[MAX_IN_VERTEX_SET];
+    int32_t new_vertex_set[MAX_IN_VERTEX_SET];
     
     for(int32_t i = 0; i < vs->count; i++)
     {
         if(in_range(loc,(g->vertex)[vs->id[i]].x,(g->vertex)[vs->id[i]].y))
         {
-            new_vs_id[new_id] = vs->id[i];
+            new_vertex_set[new_id] = vs->id[i];
             new_id++;
             new_count++;
         }
@@ -74,7 +74,7 @@ trim_nodes (graph_t* g, vertex_set_t* vs, locale_t* loc)
     
     vs->count = new_count;
     for (int32_t n = 0; n < new_count; n++)
-        vs->id[n] = new_vs_id[n];
+        vs->id[n] = new_vertex_set[n];
     
     return;
 }
