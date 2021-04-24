@@ -6,28 +6,27 @@
 
 #define MY_INFINITY   1000000000
 
-
-// find all the nodes in the given circle.
-void
-find_nodes (locale_t* loc, vertex_set_t* vs, pyr_tree_t* p, int32_t nnum)
+int outOfTree(int nnum, pyr_tree_t* p)
 {
-    record_fn_call ();
+    return (nnum >= p->n_nodes);
+}
 
-    if ( nnum >= p->n_nodes ) { return; }
-    if ( ( 4 * nnum + 1 ) > ( p -> n_nodes ) )
-    {
-        if (in_range(loc,
-            ( p -> node + nnum ) -> x,
-            ( p -> node + nnum ) -> y_left
-            ) == 1 )
-        {
-            vs->count++;
-            if (vs->count > MAX_IN_VERTEX_SET) { return; }
-            vs->id[vs->count-1] = (p->node+nnum)->id;
-        }
-    } else {
-    }
+int lastLayerOfTree(int nnum, pyr_tree_t* p)
+{
+    return ((4*nnum + 1) > p->n_nodes);
+}
 
+void addVertexIntoVertexSet(vertex_set_t* vs, pyr_tree_t* p, int nnum)
+{
+    vs->count++;
+    if (vs->count > MAX_IN_VERTEX_SET) return;
+    vs->id[vs->count-1] = (p->node+nnum)->id;
+    
+    return;
+}
+
+void recurseAllChildren(locale_t* loc, vertex_set_t* vs, pyr_tree_t* p, int32_t nnum)
+{
     find_nodes(loc,vs,p,4 * nnum + 1);
     find_nodes(loc,vs,p,4 * nnum + 2);
     find_nodes(loc,vs,p,4 * nnum + 3);
@@ -36,28 +35,47 @@ find_nodes (locale_t* loc, vertex_set_t* vs, pyr_tree_t* p, int32_t nnum)
     return;
 }
 
+// 生成
+void
+find_nodes (locale_t* loc, vertex_set_t* vs, pyr_tree_t* p, int32_t nnum)
+{
+    record_fn_call();
+    if (outOfTree(nnum, p))
+        return;
+    if (lastLayerOfTree(nnum, p))
+    {
+        if (in_range(loc, (p->node+nnum)->x,
+                     (p->node+nnum)->y_left))
+            addVertexIntoVertexSet(vs, p, nnum);
+    } else {
+        
+    }
+    recurseAllChildren(loc, vs, p, nnum);
+    return;
+}
+
+// 剪枝
 void
 trim_nodes (graph_t* g, vertex_set_t* vs, locale_t* loc)
-
 {
     int32_t new_id = 0;
     int32_t new_count = 0;
     int32_t new_vs_id[MAX_IN_VERTEX_SET];
-
-    for (int32_t m = 0; m < vs->count; m++)
+    
+    for(int32_t i = 0; i < vs->count; i++)
     {
-        if (in_range(loc,(g->vertex)[vs->id[m]].x,(g->vertex)[vs->id[m]].y))
+        if(in_range(loc,(g->vertex)[vs->id[i]].x,(g->vertex)[vs->id[i]].y))
         {
-            new_vs_id[new_id] = vs->id[m];
+            new_vs_id[new_id] = vs->id[i];
             new_id++;
             new_count++;
         }
     }
+    
     vs->count = new_count;
     for (int32_t n = 0; n < new_count; n++)
-    {
         vs->id[n] = new_vs_id[n];
-    }
+    
     return;
 }
 
