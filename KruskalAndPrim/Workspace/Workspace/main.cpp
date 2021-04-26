@@ -11,6 +11,8 @@ using namespace std;
 #define UINT  unsigned int
 #define VertexNumber 6  //顶点数量
 
+/* ***** COMMON ***** */
+
 char vertexID[] = { 'A', 'B', 'C', 'D', 'E', 'F' };
 struct node
 {
@@ -34,11 +36,23 @@ void AdjMatrix(unsigned int adjMat[][VertexNumber])  //邻接矩阵表示法
         }
     adjMat[0][1] = 6; adjMat[0][2] = 1; adjMat[0][3] = 5;
     adjMat[1][0] = 6; adjMat[1][2] = 5; adjMat[1][4] = 3;
-    adjMat[2][0] = 1; adjMat[2][1] = 5; adjMat[2][3] = 5; adjMat[2][4] = 6; adjMat[2][5] = 4;
+    adjMat[2][0] = 1; adjMat[2][1] = 5; adjMat[2][3] = 5;
+    adjMat[2][4] = 6; adjMat[2][5] = 4;
     adjMat[3][0] = 5; adjMat[3][2] = 5; adjMat[3][5] = 2;
     adjMat[4][1] = 3; adjMat[4][2] = 6; adjMat[4][5] = 6;
     adjMat[5][2] = 4; adjMat[5][3] = 2; adjMat[5][4] = 6;
 }
+
+/*   0 1 2 3 4 5
+    --------------
+ 0 | 6 1 5 X X X
+ 1 | 6 X 5 X 3 X
+ 2 | 1 5 X 5 6 4
+ 3 | 5 X 5 X X 2
+ 4 | X 3 6 X X 6
+ 5 | X X 4 2 6 X
+    --------------
+ */
 
 /* ***** PRIM ***** */
 
@@ -65,7 +79,7 @@ void MiniSpanTree_Prim(unsigned int adjMat[][VertexNumber], VertexData s)
     }
     closedge[s].data = s;      //从顶点s开始
     closedge[s].lowestcost = 0;
-    for (int i = 0; i < VertexNumber;i++)  //初始化辅助数组
+    for (int i = 0; i < VertexNumber; i++)  //初始化辅助数组
     {
         if (i != s)
         {
@@ -127,7 +141,7 @@ bool FindTree(VertexData u, VertexData v,vector<vector<VertexData> > &Tree)
             index_v = i;
     }
  
-    if (index_u != index_v)   //u,v不在一颗树上，合并两颗树
+    if (index_u != index_v)   //u,v不在一颗树上，合并两颗树，本质是并查集操作
     {
         for (unsigned int i = 0; i < Tree[index_v].size();i++)
         {
