@@ -3,23 +3,30 @@
 
 using namespace std;
 
+/// A machine with all properties included.
 struct MachineNode
 {
     int ID;     //机器号
     int avail; //机器可用时间
 };
+
+/// A job with all properties included.
 struct JobNode
 {
     int ID;     //作业号
     int time; //处理时间
 };
  
-//建立大根堆
+
+/// Build a max heap.
+/// @param r the array of jobs
+/// @param k TBD
+/// @param m TBD
 void SiftD(JobNode r[],int k,int m)
 {
     int i,j;
-    i=k;
-    j=2*i;
+    i=k; // the node
+    j=2*i; // the left child of node
     while(j<=m)
     {
         if(j<m&&r[j].time<r[j+1].time)j++;
