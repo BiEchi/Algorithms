@@ -46,7 +46,11 @@ Assume an available flow in the capacity network is $f$, then when $G''$ does no
 
 ### Difference with the conventional SAPA Algorithm
 
-The difference between SAPA and Dinic's algorithm is that, **Dinic's Algorithm conducts a DFS search instead of BFS search**, which improves the effeciency of the algorithm by a large factor. Consider the BFS search, you will find that after each loop, BFS has to seach from `src` to `sink` to find another augmenting path; but **if you conduct DFS, one loop indicates multiple times of augmentation**.
+The difference between SAPA and Dinic's algorithm is that, **Dinic's Algorithm conducts a DFS search instead of BFS search**, which improves the effeciency of the algorithm by a large factor. Consider the BFS search, you will find that after each loop, BFS has to seach from `src` to `sink` to find another augmenting path; but **if you conduct DFS, one loop indicates multiple times of augmentation**. However, it has not much differences as SAPA because applying whether DFS or BFS for examination of augmenting paths is just a divergence of different prototypes of the Ford-Fulkerson Method.
+
+### Essence
+
+The essence of Dinic's Algorithm is to apply a level graph. Typically we construct the level graph with BFS and find the augmenting paths (or understand as *we augment the flow*) with the Ford-Fulkerson method (using either BFS or DFS).
 
 ### Algorithm Representation
 
@@ -55,3 +59,4 @@ The difference between SAPA and Dinic's algorithm is that, **Dinic's Algorithm c
 ### Implementation
 
 The implementation part of the `DinicsAlgorithm()` is shown in the code provided.
+
