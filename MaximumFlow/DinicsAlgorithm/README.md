@@ -1,6 +1,6 @@
 # Dinic's Algorithm
 
-Hello, here is the implementation of Dinic's Algorithm (which is extraordinarily sophisticated to implement). The infrastructure of Dinic's Algorithm is the *labeled layered networks*, as mentioned in *slide 534*. I'll go through the basic concepts of Dinic's 
+Hello, here is the implementation of Dinic's Algorithm (which is extraordinarily sophisticated to implement). The infrastructure of Dinic's Algorithm is the *labeled layered networks*, as mentioned in *slide 534*. I'll go through the basic concepts of Dinic's algorithm first.
 
 ## ==Shortest== Augmenting Path Algorithm (SAPA)
 
