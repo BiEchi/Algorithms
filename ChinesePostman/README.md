@@ -7,7 +7,7 @@
 
 ## Pseudo-code
 
-![PseudoCode](PseudoCode.png)
+![PseudoCode](http://jacklovespictures.oss-cn-beijing.aliyuncs.com/2021-05-13-135641.png)
 
 ## Implementation
 
