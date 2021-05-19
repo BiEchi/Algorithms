@@ -11,7 +11,7 @@
 /// @param vertexNumber the number of vertices in the graph
 Graph::Graph(int vertexNumber)
 {
-    this->vertexNumber = vertexNumber;
+    this->vertexNumber = vertexNumber; // link on link 链上链
     arrayOfAdjacencyLists = new list<int>[vertexNumber];
 }
 
@@ -27,7 +27,7 @@ void Graph::DFSUtil(int vertexID, bool* visited)
     // recurse for all the vertices adjacent to this vertex
     for (auto i = arrayOfAdjacencyLists[vertexID].begin();
          i != arrayOfAdjacencyLists[vertexID].end(); i++)
-        if (!visited[*i])
+        if (!visited[*i]) // must only detect unvisited vertices
             DFSUtil(*i, visited);
     
     return;
@@ -44,6 +44,7 @@ Graph Graph::getTranspose()
             transposedGraph.arrayOfAdjacencyLists[*i].push_back(vertexID);
     }
     
+    // return the entity with the object announced in the memory
     return transposedGraph;
 }
 
@@ -60,7 +61,7 @@ void Graph::addEdge(int vertex1ID, int vertex2ID)
 /// fill vertices in stack according to their finishing times
 /// @param vertexID the ID of the vertex
 /// @param visited the array to mark whether the vertex is already visited
-/// @param Stack <#Stack description#>
+/// @param Stack record the finishing times of each vertex
 void Graph::fillOrder(int vertexID, bool *visited, stack<int> &Stack)
 {
     visited[vertexID] = true;

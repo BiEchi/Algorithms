@@ -294,16 +294,6 @@ Person *FibonacciPQ::find(string ID, list<Person *> &findinglist)
     return nullptr;
 }
 
-// withdraw operatioon for person in central queue
-// __withdrawingPerson: the person who wants withdraw
-// __blackList: the black where the person will be added
-// success:return the pointer to the withdrawing person, else return nullptr
-Person *FibonacciPQ::withdrawInCentral(Person *withdrawingPerson)
-{
-    removeNode(withdrawingPerson);
-    return withdrawingPerson;
-}
-
 vector<Person> FibonacciPQ::returnStorePeople()
 {
     return storePeople;

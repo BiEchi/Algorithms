@@ -1,8 +1,8 @@
 #ifndef _FibonacciPQ_H
 #define _FibonacciPQ_H
-#include "Person.hpp"
-#include "PeopleLocalQueue.hpp"
-#include "blackList.hpp"
+#include <iostream>
+#include <vector>
+#include <list>
 using namespace std;
 
 class FibonacciPQ
@@ -21,17 +21,16 @@ public:
     }
     int returnLength();
     bool isEmpty();
-    bool inSert(Person *handle);
-    bool eatPeople(PeopleLocalQueue &local_queue);
-    Person *withdrawInCentral(Person *withdrawingPerson);
-    Person *popMin();
-    Person *changeStatus(Person *changingPatient, string profession_status, string riskStatus_status);
-    Person* find(string ID, list<Person *> &findingList);
-    vector<Person> returnStorePeople();
-    list<Person *> getRootlist();
+    bool inSert(int key);
+    bool eatPeople(vector<int> people);
+    int popMin();
+    int find(string ID, list<int> &findingList);
+    vector<int> returnStorePeople();
+    list<int> getRootlist();
 
 private:
-    void removeNode(Person *handle);
+    // method space
+    void removeNode(int handle);
     Person *link(Person *a_prt, Person *b_ptr);
     Person *decreaseKey(Person *changeStatusPerson, string &profession_status, string &riskStatus_status);
     void rebalance();
@@ -42,12 +41,12 @@ private:
     Person *stand_in(Person *copy_person_ptr);
     bool freeSon(Person *parent_node);
 
+    // member variables space
     int PQ_length;
     int BucketLength;
     size_t Rootsize;
-    Person *Minptr; // the ptr pointing to the root having min Key in the list.
-    // 初始时造个空的
-    list<Person *> Rootlist; //creating a Rootlist to store the root
+    Person *Minptr; // ptr pointing to the smallest root
+    list<int> Rootlist;
     vector<Person *> Degreebucket;
     vector<Person> storePeople;
 };

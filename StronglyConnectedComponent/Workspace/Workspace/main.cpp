@@ -13,6 +13,7 @@ void Graph::printSCCs()
     bool* visited = new bool[vertexNumber];
     for (int i = 0; i < vertexNumber; i++)
         visited[i] = false;
+    
     // fill the stack by adding vertices according to their finishing times
     for (int i = 0; i < vertexNumber; i++)
         if (visited[i] == false)
