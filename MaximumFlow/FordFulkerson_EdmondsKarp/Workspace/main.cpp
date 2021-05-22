@@ -2,10 +2,11 @@
 #include <climits>
 #include <queue>
 #include <cstring>
+#include <stack>
 
 using namespace std;
 
-#define numberOfVertex 6
+#define numberOfVertex 10
 
 /// conduct the Breadth First Search on the residual graph
 /// @param residualGraph the residual graph
@@ -99,12 +100,17 @@ int main()
     // adjacency matrix of the given graph
     /// Note. if 0, then no edge, because algorithm will never go through a flow of 0
     int graph[numberOfVertex][numberOfVertex]
-    = { { 0, 16, 13, 0, 0, 0 },
-        { 0, 0, 10, 12, 0, 0 },
-        { 0, 4, 0, 0, 14, 0 },
-        { 0, 0, 9, 0, 0, 20 },
-        { 0, 0, 0, 7, 0, 4 },
-        { 0, 16, 13, 0, 0, 0 } };
+    = { { 0, 2, 3, 4, 0, 0, 0, 0, 0, 0 },
+        { 0, 0, 0, 0, 3, 0, 0, 0, 0, 0 },
+        { 0, 0, 0, 0, 1, 3, 2, 0, 0, 0 },
+        { 0, 0, 0, 0, 0, 2, 0, 0, 0, 0 },
+        { 0, 0, 0, 0, 0, 1, 0, 8, 0, 0 }, // d
+        { 0, 0, 0, 0, 0, 0, 0, 0, 2, 4 },
+        { 0, 0, 0, 0, 0, 5, 0, 0, 2, 4 }, // f
+        { 0, 0, 0, 0, 0, 3, 0, 0, 0, 7 }, // g
+        { 0, 0, 0, 0, 0, 0, 0, 0, 0, 3 }, // h
+        { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, // t
+    };
     
     cout << "The maximum possible flow is " << fordFulkerson(graph, 0, 5) << endl;
     

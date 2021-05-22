@@ -58,7 +58,7 @@ void Graph::addEdge(int vertex1ID, int vertex2ID)
     return;
 }
 
-/// fill vertices in stack according to their finishing times
+/// fill vertices in stack according to their finishing times (using post-order DFS)
 /// @param vertexID the ID of the vertex
 /// @param visited the array to mark whether the vertex is already visited
 /// @param Stack record the finishing times of each vertex

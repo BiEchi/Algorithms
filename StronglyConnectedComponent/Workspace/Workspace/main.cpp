@@ -14,24 +14,25 @@ void Graph::printSCCs()
     for (int i = 0; i < vertexNumber; i++)
         visited[i] = false;
     
-    // fill the stack by adding vertices according to their finishing times
+    // fill the stack by adding vertices according to their finishing times (DFS first time)
     for (int i = 0; i < vertexNumber; i++)
         if (visited[i] == false)
             fillOrder(i, visited, Stack);
     
     // get the transpose of the original graph
     Graph transposedGraph = getTranspose();
-    // re-initialize the array indicating whether visited
+    // reuse the array visited[] indicating whether visited
     for (int i = 0; i < vertexNumber; i++)
         visited[i] = false;
-    // extract vertices from the stack
+    
+    // extract vertices from the stack(pop with decreasing finishing time)
     while (!Stack.empty()) {
         int vertexID = Stack.top();
         Stack.pop();
-        // perform DFS on the unvisited vertices recursively
+        // perform DFS on the unvisited vertices recursively (DFS second time)
         if (!visited[vertexID]) {
             transposedGraph.DFSUtil(vertexID, visited);
-            cout << endl;
+            cout << endl; // one tree is finished
         }
     }
     

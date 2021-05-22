@@ -14,11 +14,6 @@ Here are the rudimentary concepts of the B tree.
 | Degree(39) | Capacity of children.                                        | 2     |
 | Order      | Largest number of child pointers.                            | 5     |
 | Height     | (Note. Excl. the omitted leaf nodes.)![image-20210518204449971](http://jacklovespictures.oss-cn-beijing.aliyuncs.com/2021-05-18-124450.png) | 3     |
-|            |                                                              |       |
-|            |                                                              |       |
-|            |                                                              |       |
-|            |                                                              |       |
-|            |                                                              |       |
 
 Note that in B tree $Degree=Order$ does **not** always holds.
 
@@ -90,10 +85,43 @@ Thus, we have to “borrow" an element from the right sibling to the parent node
 
 ### Case 3
 
+The most difficult case now comes. Say we want to delete 4.
 
+![image-20210519114732375](http://jacklovespictures.oss-cn-beijing.aliyuncs.com/2021-05-19-034732.png)
 
+Cannot borrow from siblings, neither parent. call `merge()`.
 
+![image-20210519115458270](http://jacklovespictures.oss-cn-beijing.aliyuncs.com/2021-05-19-035458.png)
 
+This leads to a cascading operation for node with sole element 3. Another `merge()` is called.
 
+![image-20210519115627682](http://jacklovespictures.oss-cn-beijing.aliyuncs.com/2021-05-19-035627.png)
+
+Alternatively, if `merge()` with the left sibling first, we’ll get
+
+![image-20210519115827817](http://jacklovespictures.oss-cn-beijing.aliyuncs.com/2021-05-19-035828.png)
 
 # B+ Tree
+
+The B+ Tree is a bit different (yes, only **a bit** different) from B Tree.
+
+![image-20210519120117025](http://jacklovespictures.oss-cn-beijing.aliyuncs.com/2021-05-19-040117.png)
+
+| Attribute          | Illustration                                                 | Value |
+| ------------------ | ------------------------------------------------------------ | ----- |
+| Degree             | Largest degree of all nodes.                                 | **4** |
+| Degree(62, 78, 96) | Capacity of children.                                        | 3     |
+| Order              | Largest number of child pointers.                            | **4** |
+| Height             | (Note. Excl. the omitted leaf nodes.)![image-20210518204449971](http://jacklovespictures.oss-cn-beijing.aliyuncs.com/2021-05-18-124450.png) | 3     |
+
+-   B+ tree has 1 child ptr for 1 element, B tree has n+1 child ptr for one node.
+-   Note that the records in the leaf is data in the magnetic disk. 
+-   Non-leaf elements in B+ tree only act as indices, which is different leaf nodes.
+-   The largest element is handy. Just look at the parent node.
+-   Easy for range request.
+
+![image-20210519183158692](http://jacklovespictures.oss-cn-beijing.aliyuncs.com/2021-05-19-103159.png)
+
+Note that $3,8,15(\rightarrow15)<20,26,43,50(\rightarrow50)<...$
+
+The child is all elements less/equal than the element.
